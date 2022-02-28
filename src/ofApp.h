@@ -23,6 +23,9 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
+		int randomColor;
+    	int randomColor2;
+    	int randomColor3;
 	private:
 		ofSoundPlayer sound;
 		AudioVisualizer visualizer;
