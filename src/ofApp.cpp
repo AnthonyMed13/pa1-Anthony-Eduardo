@@ -22,7 +22,7 @@ void ofApp::draw(){
     /* The update method is called muliple times per second
     It's in charge of drawing all figures and text on screen */
     if(!playing){
-        ofDrawBitmapString("Press 'p' to play some music!", ofGetWidth()/2 - 50, ofGetHeight()/2);
+        ofDrawBitmapString("Press 'a' to play some music!", ofGetWidth()/2 - 50, ofGetHeight()/2);
     }
     vector<float> amplitudes = visualizer.getAmplitudes();
     if(mode == '1'){
@@ -63,7 +63,7 @@ void ofApp::drawMode3(vector<float> amplitudes){
 void ofApp::keyPressed(int key){
     // This method is called automatically when any key is pressed
     switch(key){
-        case 'p':
+        case 'a':
             if(playing){
                 sound.stop();
             }else{
