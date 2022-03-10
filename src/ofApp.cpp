@@ -25,7 +25,7 @@ void ofApp::draw(){
     /* The update method is called muliple times per second
     It's in charge of drawing all figures and text on screen */
     if(!playing){
-        ofDrawBitmapString("Press 'p' to play some music!", ofGetWidth()/2 - 50, ofGetHeight()/2);
+        ofDrawBitmapString("Press 'a' to play some music!", ofGetWidth()/2 - 50, ofGetHeight()/2);
     }
     if(recording == true)
     {
@@ -95,7 +95,7 @@ void ofApp::keyPressed(int key){
 
     }
     switch(key){
-        case 'p':
+        case 'a':
             if(playing){
                 sound.stop();
             }else{
