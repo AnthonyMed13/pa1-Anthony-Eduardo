@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include<iostream>
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -6,6 +7,8 @@ void ofApp::setup(){
     sound.setLoop(true); // Makes the song loop indefinitely
     sound.setVolume(1); // Sets the song volume
     ofSetBackgroundColor(255, 182,193); // Sets the Background Color)
+    ofSetColor(ColorMode1,Color2Mode1,Color3Mode1); 
+
 
 }
 
@@ -24,8 +27,14 @@ void ofApp::draw(){
     if(!playing){
         ofDrawBitmapString("Press 'p' to play some music!", ofGetWidth()/2 - 50, ofGetHeight()/2);
     }
+    if(recording == true)
+    {
+        ofSetColor(0,0,0);
+        ofDrawBitmapString("RECORDING", ofGetWidth()-80,ofGetHeight()/ofGetHeight()+10);
+    }
     vector<float> amplitudes = visualizer.getAmplitudes();
     if(mode == '1'){
+        ofSetColor(ColorMode1,Color2Mode1,Color3Mode1); 
         drawMode1(amplitudes);
     }else if(mode == '2'){
         drawMode2(amplitudes);
@@ -34,12 +43,21 @@ void ofApp::draw(){
     }
 }
 void ofApp::drawMode1(vector<float> amplitudes){
-        
+        int w = 0;
+        int bands = amplitudes.size();
         ofFill(); // Drawn Shapes will be filled in with color
         ofSetColor(256);  //This resets the color of the "brush" to white
         ofDrawBitmapString("Rectangle Height Visualizer", 0, 15);
-        ofSetColor(randomColor,randomColor2,randomColor3); 
-        ofDrawRectangle(2, ofGetHeight() - 100, 50,  amplitudes[0]);
+        
+        
+        for(int i=0; i< bands; i++){
+            ofSetColor(ColorMode1,Color2Mode1,Color3Mode1); 
+            ofDrawRectangle((ofGetWidth()-ofGetWidth())+w, ofGetHeight(), ofGetWidth()/64,  amplitudes[i]);
+            w += ofGetWidth()/64;
+        }
+
+
+
 }
 void ofApp::drawMode2(vector<float> amplitudes){
         ofSetLineWidth(5); // Sets the line width
@@ -54,14 +72,28 @@ void ofApp::drawMode2(vector<float> amplitudes){
 }
 
 void ofApp::drawMode3(vector<float> amplitudes){
+    int w = 0;
+    int bands = amplitudes.size();
+    ofFill();
     ofSetColor(256); // This resets the color of the "brush" to white
     ofDrawBitmapString("Rectangle Width Visualizer", 0, 15);
     // YOUR CODE HERE
+    for(int i=0; i< bands; i++){
+            ofSetColor(ColorMode3,Color2Mode3,Color3Mode3); 
+            ofDrawRectangle(ofGetWidth(), (ofGetHeight()-ofGetHeight())+w,amplitudes[i], ofGetHeight()/64);
+            w += ofGetHeight()/64;
+        }
+
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     // This method is called automatically when any key is pressed
+    if (recording == true)
+    {
+        keysPressed.push_back(key);
+
+    }
     switch(key){
         case 'p':
             if(playing){
@@ -70,20 +102,31 @@ void ofApp::keyPressed(int key){
                 sound.play();
             }
             playing = !playing;
+
             break;
         case '1':
             mode = '1';
-            randomColor = ofRandom(255);
-            randomColor2 = ofRandom(255);
-            randomColor3 = ofRandom(255);
+            ColorMode1 = ofRandom(255);
+            Color2Mode1 = ofRandom(255);
+            Color3Mode1 = ofRandom(255);
             break;
         case '2':
             mode = '2';
             break;
         case '3':
             mode = '3';
+            ColorMode3 = ofRandom(255);
+            Color2Mode3 = ofRandom(255);
+            Color3Mode3 = ofRandom(255);
             break;
-    }
+        case 'r':
+            if (recording != true)
+            {
+            recording = true;
+            }
+            else recording = false;
+    }  
+
 }
 
 //--------------------------------------------------------------

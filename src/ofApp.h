@@ -2,6 +2,8 @@
 
 #include "ofMain.h"
 #include "AudioVisualizer.h"
+#include <vector>
+#include <string>
 
 class ofApp : public ofBaseApp{
 	public:
@@ -23,9 +25,15 @@ class ofApp : public ofBaseApp{
 		void windowResized(int w, int h);
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
-		int randomColor;
-    	int randomColor2;
-    	int randomColor3;
+		int ColorMode1;
+    	int Color2Mode1;
+    	int Color3Mode1;
+		int ColorMode3;
+    	int Color2Mode3;
+    	int Color3Mode3;
+		int w = 1;
+		bool recording = false;
+		std::vector<char> keysPressed;
 	private:
 		ofSoundPlayer sound;
 		AudioVisualizer visualizer;
