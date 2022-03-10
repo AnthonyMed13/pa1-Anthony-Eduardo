@@ -31,7 +31,6 @@ class ofApp : public ofBaseApp{
 		int ColorMode3;
     	int Color2Mode3;
     	int Color3Mode3;
-		int w = 1;
 		bool recording = false;
 		std::vector<char> keysPressed;
 	private:

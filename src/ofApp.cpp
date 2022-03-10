@@ -92,8 +92,8 @@ void ofApp::keyPressed(int key){
     if (recording == true)
     {
         keysPressed.push_back(key);
-
     }
+    
     switch(key){
         case 'a':
             if(playing){
