@@ -31,10 +31,13 @@ class ofApp : public ofBaseApp{
 		int ColorMode3;
     	int Color2Mode3;
     	int Color3Mode3;
+		int counter = 0;
+		int iter = 0;
+		int keym;
 		bool keyA = false;
 		bool recording = false;
 		bool replaying = false;
-		std::vector<char> keysPressed;
+		std::vector<char> keysPressed = {};
 	private:
 		ofSoundPlayer sound;
 		AudioVisualizer visualizer;

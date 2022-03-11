@@ -1,5 +1,9 @@
 #include "ofApp.h"
 #include<iostream>
+#include <chrono>
+#include <thread>
+
+using namespace std::chrono_literals;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -12,10 +16,27 @@ void ofApp::setup(){
 void ofApp::update(){
     /* The update method is called muliple times per second
     It's in charge of updating variables and the logic of our app */
-    if (keyA != true){
+    if (keyA != true)
+    {
         ofSoundUpdate(); // Updates all sound players
         visualizer.updateAmplitudes(); // Updates Amplitudes for visualizer
     }
+    if (replaying == true)
+    {
+        if(iter%120 == 0)
+        {
+            if (counter < keysPressed.size())
+            {
+                keyPressed(keysPressed[counter]);
+                counter++;
+            }
+            else replaying = false;
+            
+        }
+        iter++;
+    }
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -28,17 +49,21 @@ void ofApp::draw(){
     }
     if(playing){
         ofDrawBitmapString("Press 'p' again to select different beats!", 1580, 50);
+    }    
+    if(replaying == true)
+    {
+
+        ofSetColor(0,0,0);
+         ofDrawBitmapString("REPLAYING", ofGetWidth()-80,ofGetHeight()/ofGetHeight()+30);
+  
+
     }
     if(recording == true)
     {
         ofSetColor(0,0,0);
         ofDrawBitmapString("RECORDING", ofGetWidth()-80,ofGetHeight()/ofGetHeight()+10);
     }
-    if(replaying == true)
-    {
-        ofSetColor(0,0,0);
-        ofDrawBitmapString("REPLAYING", ofGetWidth()-80,ofGetHeight()/ofGetHeight()+10);
-    }
+
     vector<float> amplitudes = visualizer.getAmplitudes();
     if(mode == '1'){
         ofSetColor(ColorMode1,Color2Mode1,Color3Mode1); 
@@ -94,17 +119,23 @@ void ofApp::drawMode3(vector<float> amplitudes){
 }
 
 //--------------------------------------------------------------
+
 void ofApp::keyPressed(int key){
+
     // This method is called automatically when any key is pressed
-    if (recording == true)
+    if (recording == true && replaying == false)
     {
         keysPressed.push_back(key);
     }
     if (replaying == true)
     {
-        for (int i = 0; i < keysPressed.size(); i++)
-            keysPressed[i];
+        if (key != 't')
+        {
+            key = this->keysPressed[counter];
+        }
+        
     }
+
     switch(key){
         case 'p':
             if(playing){
@@ -153,10 +184,10 @@ void ofApp::keyPressed(int key){
             sound.setLoop(true);
             break;
         case '-':
-            sound.setVolume(0);
+            sound.setVolume(sound.getVolume()-0.5);
             break;
         case '=':
-            sound.setVolume(1);
+            sound.setVolume(sound.getVolume()+0.5);
             break;
         case 'r':
             if (recording != true)
@@ -164,23 +195,30 @@ void ofApp::keyPressed(int key){
             recording = true;
             }
             else recording = false;
+            break;
         case 't':
-            if (replaying != true){
+            if (replaying != true)
+            {
                 replaying = true;
             }
             else replaying = false;
+            break;
         case 'c':
             if (replaying != false){
                 replaying = false;
             }
             else replaying = false;
+            break;
     }
+    
+    
 
 }
 
+
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+    
 }
 
 //--------------------------------------------------------------
