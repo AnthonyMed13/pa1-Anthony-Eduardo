@@ -33,6 +33,7 @@ class ofApp : public ofBaseApp{
     	int Color3Mode3;
 		bool keyA = false;
 		bool recording = false;
+		bool replaying = false;
 		std::vector<char> keysPressed;
 	private:
 		ofSoundPlayer sound;
