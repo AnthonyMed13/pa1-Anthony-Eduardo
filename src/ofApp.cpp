@@ -23,12 +23,21 @@ void ofApp::draw(){
     /* The update method is called muliple times per second
     It's in charge of drawing all figures and text on screen */
     if(!playing){
-        ofDrawBitmapString("Press 'a' to play some music!", ofGetWidth()/2 - 50, ofGetHeight()/2);
+        ofDrawBitmapString("Press 'p' to play some music!", ofGetWidth()/2 - 50, ofGetHeight()/2);
+        ofDrawBitmapString("Press 'o' to select geesebeat.wav! / Press 'l' to select pigeon-coo.wav! / Press 'k' to select rock-song.wav! / Press 'd' to select beat.wav!", ofGetWidth()/2 - 500, ofGetHeight()/2 + 100);
+    }
+    if(playing){
+        ofDrawBitmapString("Press 'p' again to select different beats!", 1580, 50);
     }
     if(recording == true)
     {
         ofSetColor(0,0,0);
         ofDrawBitmapString("RECORDING", ofGetWidth()-80,ofGetHeight()/ofGetHeight()+10);
+    }
+    if(replaying == true)
+    {
+        ofSetColor(0,0,0);
+        ofDrawBitmapString("REPLAYING", ofGetWidth()-80,ofGetHeight()/ofGetHeight()+10);
     }
     vector<float> amplitudes = visualizer.getAmplitudes();
     if(mode == '1'){
@@ -91,7 +100,11 @@ void ofApp::keyPressed(int key){
     {
         keysPressed.push_back(key);
     }
-    
+    if (replaying == true)
+    {
+        for (int i = 0; i < keysPressed.size(); i++)
+            keysPressed[i];
+    }
     switch(key){
         case 'p':
             if(playing){
@@ -123,12 +136,44 @@ void ofApp::keyPressed(int key){
             }
             else keyA = false;
             break;
+        case 'o':
+            sound.load("geesebeat.wav");
+            sound.setLoop(true);
+            break;
+        case 'l':
+            sound.load("pigeon-coo.wav");
+            sound.setLoop(true);
+            break;
+        case 'k':
+            sound.load("rock-song.wav");
+            sound.setLoop(true);
+            break;
+        case 'd':
+            sound.load("beat.wav");
+            sound.setLoop(true);
+            break;
+        case '-':
+            sound.setVolume(0);
+            break;
+        case '=':
+            sound.setVolume(1);
+            break;
         case 'r':
             if (recording != true)
             {
             recording = true;
             }
             else recording = false;
+        case 't':
+            if (replaying != true){
+                replaying = true;
+            }
+            else replaying = false;
+        case 'c':
+            if (replaying != false){
+                replaying = false;
+            }
+            else replaying = false;
     }
 
 }
