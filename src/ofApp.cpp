@@ -3,21 +3,19 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    sound.loadSound("beat.wav"); //Loads a sound file (in bin/data/)
-    sound.setLoop(true); // Makes the song loop indefinitely
-    sound.setVolume(1); // Sets the song volume
+    sound.setVolume(1);
     ofSetBackgroundColor(255, 182,193); // Sets the Background Color)
     ofSetColor(ColorMode1,Color2Mode1,Color3Mode1); 
-
-
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     /* The update method is called muliple times per second
     It's in charge of updating variables and the logic of our app */
-    ofSoundUpdate(); // Updates all sound players
-    visualizer.updateAmplitudes(); // Updates Amplitudes for visualizer
+    if (keyA != true){
+        ofSoundUpdate(); // Updates all sound players
+        visualizer.updateAmplitudes(); // Updates Amplitudes for visualizer
+    }
 }
 
 //--------------------------------------------------------------
@@ -95,7 +93,7 @@ void ofApp::keyPressed(int key){
     }
     
     switch(key){
-        case 'a':
+        case 'p':
             if(playing){
                 sound.stop();
             }else{
@@ -119,13 +117,19 @@ void ofApp::keyPressed(int key){
             Color2Mode3 = ofRandom(255);
             Color3Mode3 = ofRandom(255);
             break;
+        case 'a':
+            if (keyA != true){
+                keyA = true;
+            }
+            else keyA = false;
+            break;
         case 'r':
             if (recording != true)
             {
             recording = true;
             }
             else recording = false;
-    }  
+    }
 
 }
 
