@@ -129,7 +129,7 @@ void ofApp::keyPressed(int key){
     }
     if (replaying == true)
     {
-        if (key != 't')
+        if (key != 'c')
         {
             key = this->keysPressed[counter];
         }

@@ -33,7 +33,6 @@ class ofApp : public ofBaseApp{
     	int Color3Mode3;
 		int counter = 0;
 		int iter = 0;
-		int keym;
 		bool keyA = false;
 		bool recording = false;
 		bool replaying = false;
